@@ -1,5 +1,6 @@
 // https://rudrastyh.com/instagram/get-photos-and-profile-info-pure-javascript.html
 
+// vscode insists on adding a semi-colon here. Probably some setting I don't know about 😠
 // eslint-disable-next-line no-extra-semi
 ;((document, window) => {
   var feed_container = document.getElementById('instafeed')
@@ -16,10 +17,12 @@
   script_element.onerror = () => {
     handleError('...most likely due to an Ad blocker...')
   }
-
+  // delay loading of script to prevent ugly
+  css_link.onload = () => {
+    document.body.appendChild(script_element)
+  }
   const initFeed = () => {
     document.head.appendChild(css_link)
-    document.body.appendChild(script_element)
   }
   const handleError = str => {
     feed_container.innerHTML = 'Instagram feed failed 😞<br>' + str
@@ -69,7 +72,6 @@
       feed_container.innerHTML = str
     } else {
       handleError('"' + data.meta.error_message + '"')
-      // console.log('SPACETAG: feed.js', data.meta)
     }
   }
 
