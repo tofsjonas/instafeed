@@ -1,5 +1,8 @@
-// https://w3bits.com/css-image-hover-zoom/
+$image-hover-timeout:.2s;
+
 #instafeed {
+
+  position: relative;
   @keyframes spin {
     0% {
       transform: rotate(0deg);
@@ -9,33 +12,38 @@
     }
   }
 
-  &:empty {
+  img{
+    filter: grayscale(0%);
+    position: relative;
+    // opacity: on page load
+    // filter, transform on hover
+    transition: transform 0.3s, opacity 1s, filter $image-hover-timeout ;
+    opacity: 1;
+    &[data-lazy-if]{
+      opacity: 0;
+    }
+  }
+
+  &:not(.loaded) {
     &:after {
-      opacity: 0.1;
+      margin:.1em;
+      opacity: 0.06;
+      position: absolute;
       animation: spin 1s cubic-bezier(0.8, 0, 0.2, 1) infinite;
-      transform-origin: inherit;
-      display: block;
       font: 6em 'FontAwesome';
       content: '\f16d';
     }
   }
-  * {
-    transition: all 0.2s ease-in-out;
-  }
-  // box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0.1em;
   a {
-    margin: 0.2em;
     position: relative;
     overflow: hidden;
-    // border: 1px solid black;
     display: inline-block;
     text-decoration: none;
     text-align: center;
+    background: rgba(#ddd,0.7);
+
     &:after {
-      transition: opacity 0.3s ease-in-out;
+      transition: filter 0.6s, opacity $image-hover-timeout ;
       content: '';
       position: absolute;
       background: #111;
@@ -49,24 +57,31 @@
 
     &:hover {
       img {
-        transform: scale(1.2);
+        transform: scale(1.1);
+        filter: grayscale(50%);
       }
       &:after {
-        opacity: 0.8;
+        opacity: 0.7;
       }
 
-      .info {
+      .info-if {
         opacity: 1;
         left: 0;
         bottom: 0;
         margin-top: 0;
+        transform: scale(1);
       }
     }
   }
-  .info {
+  .info-if {
+    // transition: opacity $image-hover-timeout, margin $image-hover-timeout, transform $image-hover-timeout;
+    transition: all $image-hover-timeout;
+    
     opacity: 0;
-    margin-top: 50px;
+    transform: scale(.8);
+    // margin-top: 20px;
     color: #ddd;
+    // color:#000;
     position: absolute;
     top: 0;
     left: 0;
@@ -74,8 +89,8 @@
     right: 0;
     z-index: 10;
   }
-  .likes,
-  .comments {
+  .likes-if,
+  .comments-if {
     margin: 25% 0.5em;
     display: inline-block;
     &:before {
@@ -84,13 +99,13 @@
       margin-right: 0.4em;
     }
   }
-  .likes {
+  .likes-if {
     &:before {
       // content: '\f004'; // filled
       content: '\f08a';
     }
   }
-  .comments {
+  .comments-if {
     &:before {
       // content: '\f075'; //filled
       content: '\f0e5';
@@ -98,11 +113,12 @@
       transform: scaleX(-1);
     }
   }
-  .caption {
+  .caption-if {
     position: absolute;
     width: 100%;
     top: 50%;
     font-size: 0.9em;
     bottom: 0;
   }
+
 }

@@ -1,0 +1,34 @@
+{
+  "name": "instafeed",
+  "version": "1.0.0",
+  "description": "a simple instagram feed",
+  "main": "dist/feed.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -cw"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tofsjonas/instafeed.git"
+  },
+  "keywords": [
+    "instagram",
+    "feed",
+    "typescript",
+    "rollup"
+  ],
+  "author": "Jonas Earendel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tofsjonas/instafeed/issues"
+  },
+  "homepage": "https://github.com/tofsjonas/instafeed#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.10.0",
+    "@typescript-eslint/parser": "^2.10.0",
+    "eslint": "^6.7.2",
+    "rollup": "^1.27.8",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "typescript": "^3.7.3"
+  }
+}

@@ -1,10 +1,5 @@
 #instafeed {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  padding: 0.1em;
+  position: relative;
 }
 
 @-webkit-keyframes spin {
@@ -29,34 +24,45 @@
   }
 }
 
-#instafeed:empty:after {
-  opacity: 0.1;
+#instafeed img {
+  -webkit-filter: grayscale(0%);
+          filter: grayscale(0%);
+  position: relative;
+  -webkit-transition: opacity 1s, -webkit-transform 0.3s, -webkit-filter 0.2s;
+  transition: opacity 1s, -webkit-transform 0.3s, -webkit-filter 0.2s;
+  transition: transform 0.3s, opacity 1s, filter 0.2s;
+  transition: transform 0.3s, opacity 1s, filter 0.2s, -webkit-transform 0.3s, -webkit-filter 0.2s;
+  opacity: 1;
+}
+
+#instafeed img[data-lazy-if] {
+  opacity: 0;
+}
+
+#instafeed:not(.loaded):after {
+  margin: .1em;
+  opacity: 0.06;
+  position: absolute;
   -webkit-animation: spin 1s cubic-bezier(0.8, 0, 0.2, 1) infinite;
           animation: spin 1s cubic-bezier(0.8, 0, 0.2, 1) infinite;
-  -webkit-transform-origin: inherit;
-          transform-origin: inherit;
-  display: block;
   font: 6em 'FontAwesome';
   content: '\f16d';
 }
 
-#instafeed * {
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-
 #instafeed a {
-  margin: 0.2em;
   position: relative;
   overflow: hidden;
   display: inline-block;
   text-decoration: none;
   text-align: center;
+  background: rgba(221, 221, 221, 0.7);
 }
 
 #instafeed a:after {
-  -webkit-transition: opacity 0.3s ease-in-out;
-  transition: opacity 0.3s ease-in-out;
+  -webkit-transition: opacity 0.2s, -webkit-filter 0.6s;
+  transition: opacity 0.2s, -webkit-filter 0.6s;
+  transition: filter 0.6s, opacity 0.2s;
+  transition: filter 0.6s, opacity 0.2s, -webkit-filter 0.6s;
   content: '';
   position: absolute;
   background: #111;
@@ -69,24 +75,31 @@
 }
 
 #instafeed a:hover img {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-filter: grayscale(50%);
+          filter: grayscale(50%);
 }
 
 #instafeed a:hover:after {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
-#instafeed a:hover .info {
+#instafeed a:hover .info-if {
   opacity: 1;
   left: 0;
   bottom: 0;
   margin-top: 0;
+  -webkit-transform: scale(1);
+          transform: scale(1);
 }
 
-#instafeed .info {
+#instafeed .info-if {
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
   opacity: 0;
-  margin-top: 50px;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
   color: #ddd;
   position: absolute;
   top: 0;
@@ -96,30 +109,30 @@
   z-index: 10;
 }
 
-#instafeed .likes,
-#instafeed .comments {
+#instafeed .likes-if,
+#instafeed .comments-if {
   margin: 25% 0.5em;
   display: inline-block;
 }
 
-#instafeed .likes:before,
-#instafeed .comments:before {
+#instafeed .likes-if:before,
+#instafeed .comments-if:before {
   font: 1.3em 'FontAwesome';
   display: inline-block;
   margin-right: 0.4em;
 }
 
-#instafeed .likes:before {
+#instafeed .likes-if:before {
   content: '\f08a';
 }
 
-#instafeed .comments:before {
+#instafeed .comments-if:before {
   content: '\f0e5';
   -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
 }
 
-#instafeed .caption {
+#instafeed .caption-if {
   position: absolute;
   width: 100%;
   top: 50%;
