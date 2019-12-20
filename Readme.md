@@ -1,6 +1,8 @@
 # InstaFeed
 
-A simple tool to add a *very* basic instagram feed on a website. No swiping, no carousel, just images + caption, number of likes/comments.
+A simple tool to add one or more *quite* basic instagram feed on a website.
+
+It will display the latest images - with caption - as well as the number of likes/comments.
 
 ## Requirements
 
@@ -12,22 +14,32 @@ Well, a website I guess. And the ability to add html/javascript to it.
    https://instagram.pixelunion.net/
    and follow the instructions to get your instagram token
 
-2. Somewhere in your html, add  `<div id="instafeed"></div>`
+2. Somewhere in your html, add  `<div class="instafeed" data-token="YOUR_TOKEN"></div>`
 
-3. At the end of your html, just before the `</body>` tag, add
+3. In your `<head>` tag, add
+`<link href="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/feed.min.css" rel="stylesheet" />`
 
-`<script src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@1.0/feed.min.js" data-token="YOUR_TOKEN"></script>`
+4. At the end of your html, just before the `</body>` tag, add
+`<script src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/feed.min.js"></script>`
 
 ## Tweaking
 
 There are two optional settings:  
 
-- **data-img-size**, which sets the height and width of the images (default=320)
-- **data-count**, which sets the number of images to display (default=4, max=20)
+- **data-img-size**, which sets the height and width of the images (default/max=**320**)
+- **data-count**, which sets the number of images to display (default/max=**20**)
 
 Like so:
+`<div class="instafeed" data-img-size="200" data-count="10" data-token="YOUR_TOKEN"></div>`
 
-`<script src="...." data-img-size="200" data-count="10" data-token="YOUR_TOKEN"></script>`
+You can have as many feeds as you like, just add more:
+
+```
+<div class="instafeed" data-token="YOUR_TOKEN"></div>
+<div class="instafeed" data-token="ANOTHER_TOKEN"></div>
+<div class="instafeed" data-token="A_THIRD_TOKEN"></div>
+```
+
 
 ## Caveats
 Adblockers may prevent the feed...
@@ -37,8 +49,4 @@ Adblockers may prevent the feed...
 The root of it all, what made this possible:  
 https://rudrastyh.com/instagram/get-photos-and-profile-info-pure-javascript.html
 
-Font Awesome, so it looks a bit fancy:  
-https://fontawesome.com/
-
-To enable loading of FontAwesome if needed:
-https://gist.github.com/AllThingsSmitty/716e8b64f04fbf4d21c3c63e54d4a487
+Fonts generated at https://icomoon.io/app/, base64-encoded at https://transfonter.org/

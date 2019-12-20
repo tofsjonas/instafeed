@@ -1,8 +1,21 @@
+@import "_icomoon";
+
 $image-hover-timeout:.2s;
 
-#instafeed {
 
+
+.instafeed {
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+
+  // height: 200px;
   position: relative;
+  // *{
+  //   box-sizing:content-box;
+  //   margin:0;
+  //   padding: 0;
+
+  // }
   @keyframes spin {
     0% {
       transform: rotate(0deg);
@@ -11,39 +24,64 @@ $image-hover-timeout:.2s;
       transform: rotate(360deg);
     }
   }
-
-  img{
-    filter: grayscale(0%);
-    position: relative;
-    // opacity: on page load
-    // filter, transform on hover
-    transition: transform 0.3s, opacity 1s, filter $image-hover-timeout ;
-    opacity: 1;
-    &[data-lazy-if]{
-      opacity: 0;
+  &[data-error]{
+    &:after{
+      // background: rgba(#fff,.9);
+      background: #fff;
+      border-radius: 5px;
+      color:#ad2a1a;
+      content : attr(data-error);
+      display: inline-block;
+      margin: 1em;
+      padding: 1em;
+      // margin-top:1em;
+      white-space: pre;
     }
   }
-
   &:not(.loaded) {
     &:after {
-      margin:.1em;
       opacity: 0.06;
       position: absolute;
+      top:.1em;
+      left:.2em;
       animation: spin 1s cubic-bezier(0.8, 0, 0.2, 1) infinite;
-      font: 6em 'FontAwesome';
-      content: '\f16d';
+      font: 6em 'icomoon';
+      // content: '\f16d'; // fontawesome
+      content: '\ea92';
     }
   }
-  a {
+  img{
+    // removes annoying extra space
+   display: block;
+    // maintains aspect ratio
+   height: auto;
+   max-width: 100%;
+   position: relative;
+   // transform on hover
+   // opacity: on page load
+   transition: transform 0.3s, opacity 1s ;
+   opacity: 1;
+   &[data-src]{
+     opacity: 0;
+   }
+ }
+
+ a {
+    // width is set in javascript
+    height: auto;
+    max-width:20em;
+    // min-width: 200px;
     position: relative;
     overflow: hidden;
     display: inline-block;
     text-decoration: none;
     text-align: center;
-    background: rgba(#ddd,0.7);
+    // background: rgba(#ddd,0.7);
+    background:red;
 
     &:after {
-      transition: filter 0.6s, opacity $image-hover-timeout ;
+      // transition: filter 0.6s, opacity $image-hover-timeout ;
+      transition: opacity $image-hover-timeout ;
       content: '';
       position: absolute;
       background: #111;
@@ -58,13 +96,13 @@ $image-hover-timeout:.2s;
     &:hover {
       img {
         transform: scale(1.1);
-        filter: grayscale(50%);
+        // filter: grayscale(50%);
       }
       &:after {
-        opacity: 0.7;
+        opacity: 0.8;
       }
 
-      .info-if {
+      .info {
         opacity: 1;
         left: 0;
         bottom: 0;
@@ -73,10 +111,10 @@ $image-hover-timeout:.2s;
       }
     }
   }
-  .info-if {
+  .info {
     // transition: opacity $image-hover-timeout, margin $image-hover-timeout, transform $image-hover-timeout;
     transition: all $image-hover-timeout;
-    
+    font-size:1.3em;
     opacity: 0;
     transform: scale(.8);
     // margin-top: 20px;
@@ -89,35 +127,38 @@ $image-hover-timeout:.2s;
     right: 0;
     z-index: 10;
   }
-  .likes-if,
-  .comments-if {
+  .likes,
+  .comments {
     margin: 25% 0.5em;
     display: inline-block;
     &:before {
-      font: 1.3em 'FontAwesome';
+      font-family: 'icomoon';
       display: inline-block;
       margin-right: 0.4em;
     }
   }
-  .likes-if {
+  .likes {
     &:before {
       // content: '\f004'; // filled
-      content: '\f08a';
+      // content: '\f08a';
+      content: '\e901';
     }
   }
-  .comments-if {
+  .comments {
     &:before {
-      // content: '\f075'; //filled
-      content: '\f0e5';
-
+      // content: '\f0e5'; // fontawesome
+      content: '\e900';
+      
       transform: scaleX(-1);
     }
   }
-  .caption-if {
+  .caption {
     position: absolute;
-    width: 100%;
+    // width: 90%;
     top: 50%;
-    font-size: 0.9em;
+    left:0;
+    right:0;
+    // font-size: 1.1em;
     bottom: 0;
   }
 

@@ -1,37 +1,48 @@
-import { instagram_api_src, css_ref, error_msg_adblocker, feed_container, image_width, image_count, image_height } from './vars'
+declare var window: any
+
+import { instagram_api_src, error_msg_adblocker } from './vars'
+import { mishaProcessResult } from './mishaProcess'
 import { displayError } from './errorHandler'
-// type initProps = {
-//   callback: Function
+
+// const prepareContainer = (container) => {
+
 // }
-// const initFeed = ({ callback }: initProps) => {
 
-export const init = (callback: Function) => {
-  feed_container.style.minWidth = image_width + 'px'
-  feed_container.style.minHeight = image_height + 'px'
+export const initFeeds = () => {
+  window.instafunx = Object()
 
-  const feed_script_element = document.createElement('script')
+  const feeds: any = document.querySelectorAll('.instafeed:not(.initialized)')
+  for (let i = 0; i < feeds.length; i++) {
+    const feed = feeds[i]
+    if (feed.classList.contains('loaded')) continue
 
-  // useless in safari...
-  // feed_script_element.addEventListener('error', function(e: any) {
-  //   e.preventDefault()
-  //   displayError(error_msg_adblocker)
-  // })
-  // feed_script_element.onerror = (e: any) => {
-  //   e.preventDefault()
-  //   displayError(error_msg_adblocker)
-  //   // throw new Error(error_adblocker)
-  // }
+    const token = feed.getAttribute('data-token') || ''
+    const count = feed.getAttribute('data-count') || 20
+    const identifier =
+      'a' +
+      Math.random()
+        .toString(36)
+        .slice(-5) +
+      i
+    var api_src = instagram_api_src
+    api_src += 'access_token=' + token
+    api_src += '&count=' + count
+    api_src += '&callback=window.instafunx.' + identifier
 
-  feed_script_element.onload = () => {
-    callback()
+    const api_script = document.createElement('script')
+    api_script.setAttribute('src', api_src)
+    api_script.onerror = () => {
+      feed.classList.add('loaded')
+      displayError(error_msg_adblocker, feed)
+    }
+    window.instafunx[identifier] = (a: any) => {
+      feed.classList.add('loaded')
+      mishaProcessResult(a, feed)
+    }
+
+    document.body.appendChild(api_script)
+    // setTimeout(() => {
+    //   document.body.appendChild(api_script)
+    // }, (i + 1) * 500)
   }
-  feed_script_element.setAttribute('src', instagram_api_src)
-
-  const feed_css_link = document.createElement('link')
-  feed_css_link.rel = 'stylesheet'
-  feed_css_link.href = css_ref
-  feed_css_link.onload = () => {
-    document.body.appendChild(feed_script_element)
-  }
-  document.head.appendChild(feed_css_link)
 }

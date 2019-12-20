@@ -1,4 +1,5 @@
-import { feed_container } from './vars'
+// import { feed_container } from './vars'
+import { error_headline } from './vars'
 
 // does not work in safari. surprise. NO custom errors!
 // export const handleErrors = () => {
@@ -11,6 +12,6 @@ import { feed_container } from './vars'
 //   })
 // }
 
-export const displayError = (message: string) => {
-  feed_container.setAttribute('data-error-if', 'Instagram feed failed 😞<br>' + message)
+export const displayError = (message: string, container: Element) => {
+  container.setAttribute('data-error', error_headline + message)
 }

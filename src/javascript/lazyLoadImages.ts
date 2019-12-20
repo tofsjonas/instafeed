@@ -1,32 +1,24 @@
-import { feed_container } from './vars'
+// import { feed_container } from './vars'
 
 const unLazyImage = (img: HTMLImageElement): void => {
   img.onload = () => {
-    img.removeAttribute('data-lazy-if')
+    img.removeAttribute('data-src')
   }
-  img.src = img.getAttribute('data-lazy-if')
+  img.src = img.getAttribute('data-src')
 }
 
-const getLazyImages = (): Array<HTMLImageElement> => {
-  return [].slice.call(feed_container.querySelectorAll('img'))
-}
-
-export const unLazyInstant = (): void => {
-  var lazyImages = getLazyImages()
+export const unLazyInstant = (container: Element): void => {
+  var lazyImages = [].slice.call(container.querySelectorAll('[data-src]'))
   lazyImages.forEach((image: HTMLImageElement) => {
     unLazyImage(image)
   })
-  feed_container.classList.add('loaded')
+  // container.classList.add('loaded')
 }
 
-export const unLazyObserved = (): void => {
+export const lazyLoadImages = (container: Element): void => {
+  var lazyImages = [].slice.call(container.querySelectorAll('[data-src]'))
+
   if ('IntersectionObserver' in window) {
-    var lazyImages = getLazyImages()
-
-    // Create new observer object
-    // let lazyImageObserver = new IntersectionObserver((entries, observer) => { // observer isn't used...
-    // let lazyImageObserver = new IntersectionObserver((entries: Array<HTMLImageElement>) => { // doesn't compile
-
     let lazyImageObserver = new IntersectionObserver((entries: Array<any>) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -36,11 +28,15 @@ export const unLazyObserved = (): void => {
         }
       })
     })
+    // lazyImageObserver.observe(lazyImages)
+
     lazyImages.forEach((image: HTMLImageElement) => {
       lazyImageObserver.observe(image)
     })
-    feed_container.classList.add('loaded')
+    container.classList.add('loaded')
   } else {
-    unLazyInstant()
+    lazyImages.forEach((image: HTMLImageElement) => {
+      unLazyImage(image)
+    })
   }
 }
