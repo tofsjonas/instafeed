@@ -3,6 +3,7 @@ var instagram_api_src = 'https://api.instagram.com/v1/users/self/media/recent?';
 var error_headline = 'Instagram feed failed 😞\n\n';
 var error_msg_adblocker = 'Most likely due to an ad blocker...';
 var caption_length = 120;
+var default_img_width = 320;
 
 // import { feed_container } from './vars'
 // does not work in safari. surprise. NO custom errors!
@@ -42,7 +43,7 @@ var lazyLoadImages = function (container) {
         lazyImages.forEach(function (image) {
             lazyImageObserver_1.observe(image);
         });
-        container.classList.add('loaded');
+        // container.classList.add('loaded')
     }
     else {
         lazyImages.forEach(function (image) {
@@ -57,8 +58,8 @@ var getProcessedData = function (data, feed_container) {
     // data.meta.code will always be set, otherwise this function will not be called...
     if (data.meta.code === 200) {
         var image_size = parseFloat(feed_container.getAttribute('data-img-size'));
-        if (isNaN(image_size) || image_size > 320) {
-            image_size = 320;
+        if (isNaN(image_size) || image_size > default_img_width) {
+            image_size = default_img_width;
         }
         var font_size = image_size / 20;
         feed_container.style.fontSize = font_size + 'px';
@@ -94,7 +95,7 @@ var mishaProcessResult = function (data, feed_container) {
 // }
 var initFeeds = function () {
     window.instafunx = Object();
-    var feeds = document.querySelectorAll('.instafeed:not(.initialized)');
+    var feeds = document.querySelectorAll('.instafeed:not(.loaded)');
     var _loop_1 = function (i) {
         var feed = feeds[i];
         if (feed.classList.contains('loaded'))

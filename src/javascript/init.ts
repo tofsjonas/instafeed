@@ -11,7 +11,7 @@ import { displayError } from './errorHandler'
 export const initFeeds = () => {
   window.instafunx = Object()
 
-  const feeds: any = document.querySelectorAll('.instafeed:not(.initialized)')
+  const feeds: any = document.querySelectorAll('.instafeed:not(.loaded)')
   for (let i = 0; i < feeds.length; i++) {
     const feed = feeds[i]
     if (feed.classList.contains('loaded')) continue

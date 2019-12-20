@@ -33,7 +33,7 @@ export const lazyLoadImages = (container: Element): void => {
     lazyImages.forEach((image: HTMLImageElement) => {
       lazyImageObserver.observe(image)
     })
-    container.classList.add('loaded')
+    // container.classList.add('loaded')
   } else {
     lazyImages.forEach((image: HTMLImageElement) => {
       unLazyImage(image)

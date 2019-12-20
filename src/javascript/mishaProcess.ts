@@ -25,8 +25,8 @@ const getProcessedData = (data: any, feed_container: HTMLElement): Array<string>
   // data.meta.code will always be set, otherwise this function will not be called...
   if (data.meta.code === 200) {
     var image_size = parseFloat(feed_container.getAttribute('data-img-size'))
-    if (isNaN(image_size) || image_size > 320) {
-      image_size = 320
+    if (isNaN(image_size) || image_size > default_img_width) {
+      image_size = default_img_width
     }
     var font_size = image_size / 20
 
