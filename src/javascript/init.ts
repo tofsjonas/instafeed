@@ -34,35 +34,30 @@ export const initFeeds = () => {
   const feeds: any = document.querySelectorAll('.instafeed:not(.loaded)')
   for (let i = 0; i < feeds.length; i++) {
     const feed = feeds[i]
-    if (feed.classList.contains('loaded')) {
-      continue
+    if (!feed.classList.contains('loaded')) {
+      const token = feed.getAttribute('data-token') || ''
+      const count = feed.getAttribute('data-count') || default_img_count
+      prepareContainer(feed,count)
+      // continue
+  
+      const identifier = 'a' + (new Date() as any % 9e6).toString(36) + i
+      // const identifier = 'a' + (0 | (Math.random() * 9e6)).toString(36) + i
+      var api_src = instagram_api_src
+      api_src += 'access_token=' + token
+      api_src += '&count=' + count
+      api_src += '&callback=window.instafunx.' + identifier
+      const api_script = document.createElement('script')
+      api_script.setAttribute('src', api_src)
+      api_script.onerror = () => {
+        feed.classList.add('loaded')
+        displayError(error_msg_adblocker, feed)
+      }
+      window.instafunx[identifier] = (a: any) => {
+        feed.classList.add('loaded')
+        mishaProcessResult(a, feed)
+      }
+  
+      document.body.appendChild(api_script)
     }
-
-    const token = feed.getAttribute('data-token') || ''
-    const count = feed.getAttribute('data-count') || default_img_count
-    prepareContainer(feed,count)
-    // continue
-
-    const identifier = 'a' + (new Date() as any % 9e6).toString(36) + i
-    // const identifier = 'a' + (0 | (Math.random() * 9e6)).toString(36) + i
-    var api_src = instagram_api_src
-    api_src += 'access_token=' + token
-    api_src += '&count=' + count
-    api_src += '&callback=window.instafunx.' + identifier
-    const api_script = document.createElement('script')
-    api_script.setAttribute('src', api_src)
-    api_script.onerror = () => {
-      feed.classList.add('loaded')
-      displayError(error_msg_adblocker, feed)
-    }
-    window.instafunx[identifier] = (a: any) => {
-      feed.classList.add('loaded')
-      mishaProcessResult(a, feed)
-    }
-
-    document.body.appendChild(api_script)
-    // setTimeout(() => {
-    //   document.body.appendChild(api_script)
-    // }, (i + 1) * 500)
   }
 }

@@ -108,30 +108,29 @@ var initFeeds = function () {
     var feeds = document.querySelectorAll('.instafeed:not(.loaded)');
     var _loop_1 = function (i) {
         var feed = feeds[i];
-        if (feed.classList.contains('loaded')) {
-            return "continue";
+        if (!feed.classList.contains('loaded')) {
+            var token = feed.getAttribute('data-token') || '';
+            var count = feed.getAttribute('data-count') || default_img_count;
+            prepareContainer(feed, count);
+            // continue
+            var identifier = 'a' + (new Date() % 9e6).toString(36) + i;
+            // const identifier = 'a' + (0 | (Math.random() * 9e6)).toString(36) + i
+            api_src = instagram_api_src;
+            api_src += 'access_token=' + token;
+            api_src += '&count=' + count;
+            api_src += '&callback=window.instafunx.' + identifier;
+            var api_script = document.createElement('script');
+            api_script.setAttribute('src', api_src);
+            api_script.onerror = function () {
+                feed.classList.add('loaded');
+                displayError(error_msg_adblocker, feed);
+            };
+            window.instafunx[identifier] = function (a) {
+                feed.classList.add('loaded');
+                mishaProcessResult(a, feed);
+            };
+            document.body.appendChild(api_script);
         }
-        var token = feed.getAttribute('data-token') || '';
-        var count = feed.getAttribute('data-count') || default_img_count;
-        prepareContainer(feed, count);
-        // continue
-        var identifier = 'a' + (new Date() % 9e6).toString(36) + i;
-        // const identifier = 'a' + (0 | (Math.random() * 9e6)).toString(36) + i
-        api_src = instagram_api_src;
-        api_src += 'access_token=' + token;
-        api_src += '&count=' + count;
-        api_src += '&callback=window.instafunx.' + identifier;
-        var api_script = document.createElement('script');
-        api_script.setAttribute('src', api_src);
-        api_script.onerror = function () {
-            feed.classList.add('loaded');
-            displayError(error_msg_adblocker, feed);
-        };
-        window.instafunx[identifier] = function (a) {
-            feed.classList.add('loaded');
-            mishaProcessResult(a, feed);
-        };
-        document.body.appendChild(api_script);
     };
     var api_src;
     for (var i = 0; i < feeds.length; i++) {
