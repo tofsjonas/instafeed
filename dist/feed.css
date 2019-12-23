@@ -1,3 +1,4 @@
+/* prettier-ignore */
 @font-face {
   font-family: 'icomoon';
   src: url(data:application/font-woff;charset=utf-8;base64,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) format("woff");
@@ -6,8 +7,8 @@
 }
 
 .instafeed {
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
   position: relative;
 }
 
@@ -44,21 +45,10 @@
   white-space: pre;
 }
 
-.instafeed:not(.loaded):after {
-  opacity: 0.06;
-  position: absolute;
-  top: .1em;
-  left: .2em;
-  -webkit-animation: spin 1s cubic-bezier(0.8, 0, 0.2, 1) infinite;
-          animation: spin 1s cubic-bezier(0.8, 0, 0.2, 1) infinite;
-  font: 6em 'icomoon';
-  content: '\ea92';
-}
-
 .instafeed img {
   display: block;
-  height: auto;
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
   position: relative;
   -webkit-transition: opacity 1s, -webkit-transform 0.3s;
   transition: opacity 1s, -webkit-transform 0.3s;
@@ -72,28 +62,43 @@
 }
 
 .instafeed a {
-  height: auto;
-  max-width: 20em;
   position: relative;
   overflow: hidden;
   display: inline-block;
   text-decoration: none;
   text-align: center;
-  background: red;
+  background: rgba(221, 221, 221, 0.7);
+}
+
+.instafeed a:before {
+  opacity: 0;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  color: #bbb;
+  position: absolute;
+  top: 0.2em;
+  left: 0.2em;
+  font: 2em "icomoon";
+  content: "\ea92";
+}
+
+.instafeed a:empty:before {
+  opacity: 0.8;
+  -webkit-animation: spin 1.5s cubic-bezier(0.8, 0, 0.2, 1) infinite;
+          animation: spin 1.5s cubic-bezier(0.8, 0, 0.2, 1) infinite;
 }
 
 .instafeed a:after {
+  background: #111;
+  content: "";
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
-  content: '';
-  position: absolute;
-  background: #111;
   opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
   bottom: 0;
+  left: 0;
+  position: absolute;
   right: 0;
+  top: 0;
 }
 
 .instafeed a:hover img {
@@ -115,18 +120,19 @@
 }
 
 .instafeed .info {
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-  font-size: 1.3em;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
+  transition: opacity 0.2s, -webkit-transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity 0.2s, transform 0.2s, -webkit-transform 0.2s;
   opacity: 0;
   -webkit-transform: scale(0.8);
           transform: scale(0.8);
-  color: #ddd;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  color: #eee;
   z-index: 10;
 }
 
@@ -134,29 +140,34 @@
 .instafeed .comments {
   margin: 25% 0.5em;
   display: inline-block;
+  font-size: 1.3em;
 }
 
 .instafeed .likes:before,
 .instafeed .comments:before {
-  font-family: 'icomoon';
+  vertical-align: baseline;
+  font-family: "icomoon";
   display: inline-block;
   margin-right: 0.4em;
 }
 
 .instafeed .likes:before {
-  content: '\e901';
+  content: "\e901";
 }
 
 .instafeed .comments:before {
-  content: '\e900';
+  content: "\e900";
   -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
 }
 
 .instafeed .caption {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
   bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-top: 50%;
+  overflow: hidden;
+  max-height: 40%;
 }
