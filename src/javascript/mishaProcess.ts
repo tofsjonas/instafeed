@@ -23,12 +23,12 @@ type dataElement = {
   }
 }
 
-const processResult = (data: any, feed_container: HTMLElement): void => {
+export const mishaProcessResult = (data: any, feed_container: HTMLElement): void => {
   // data.meta.code will always be set, otherwise this function will not be called...
   if (data.meta.code === 200) {
-    var data_resolution = feed_container.getAttribute('data-resolution')
+    var data_resolution = feed_container.getAttribute('data-res')
     if(!data_resolution){
-      var image_size = parseFloat(feed_container.getAttribute('data-img-size')) || default_img_width
+      var image_size = parseFloat(feed_container.getAttribute('data-size')) || default_img_width
       if(image_size > default_img_width){
         data_resolution = 'hi'
       }
@@ -43,10 +43,7 @@ const processResult = (data: any, feed_container: HTMLElement): void => {
       var comments = element.comments.count || 0
       var likes = element.likes.count || 0
       var caption = element.caption ? element.caption.text.substr(0, caption_length).replace(/(?:\r\n|\r|\n)/g, '<br>') : ''
-
       var img_lazy = (data_resolution==='hi')?element.images.standard_resolution.url: element.images.low_resolution.url
-      
-
       str += '<img data-src="' + img_lazy + '" alt="" />'
       str += '<div class="info">'
       str += likes > 0 ? '<div class="likes">' + likes + '</div>' : ''
@@ -65,10 +62,3 @@ const processResult = (data: any, feed_container: HTMLElement): void => {
   }
 }
 
-export const mishaProcessResult = function(data: any, feed_container: HTMLElement) {
-  console.log('SPACETAG: mishaProcess.ts', data)
-  processResult(data, feed_container)
-  // var res = getProcessedData(data, feed_container)
-  // feed_container.innerHTML = res.join('')
-  // lazyLoadImages(feed_container)
-}

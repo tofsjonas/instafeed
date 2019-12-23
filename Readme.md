@@ -17,20 +17,41 @@ Well, a website I guess. And the ability to add html/javascript to it.
 2. Somewhere in your html, add  `<div class="instafeed" data-token="YOUR_TOKEN"></div>`
 
 3. In your `<head>` tag, add
-`<link href="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/feed.min.css" rel="stylesheet" />`
+`<link href="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.css" rel="stylesheet" />`
 
 4. At the end of your html, just before the `</body>` tag, add
-`<script src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/feed.min.js"></script>`
+`<script src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>`
+
+5. Call **window.instafeed()**! For instance by adding the following after the `<script>` tag you added in the previous step:
+
+```
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      instafeed()
+    })
+  </script>
+
+```
+
+
 
 ## Tweaking
 
-There are two optional settings:  
+There are three optional settings:  
 
-- **data-img-size**, which sets the height and width of the images (default/max=**320**)
+- **data-size**, which sets the height and width of the images (default/max=**320**)
 - **data-count**, which sets the number of images to display (default/max=**20**)
+- **data-res**, (**...="lo"** / **...="hi"**) which forces the use of low or high resolution images (otherwise it is decided based on image size...)
 
 Like so:
-`<div class="instafeed" data-img-size="200" data-count="10" data-token="YOUR_TOKEN"></div>`
+
+```
+<div class="instafeed"
+	data-size="200"
+	data-count="10"
+	data-res="hi"
+	data-token="YOUR_TOKEN"></div>`
+```
 
 You can have as many feeds as you like, just add more:
 

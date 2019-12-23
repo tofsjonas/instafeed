@@ -9,17 +9,6 @@ var default_img_count = 20; // instagram api max
 var min_fontsize = 12;
 var max_fontsize = 18;
 
-// import { feed_container } from './vars'
-// does not work in safari. surprise. NO custom errors!
-// export const handleErrors = () => {
-//   window.addEventListener('error', function(e: any) {
-//     if (current_script.src === e.filename) {
-//       e.preventDefault()
-//       feed_container.innerHTML = 'Instagram feed failed 😞<br>' + e.message
-//     }
-//     e.preventDefault()
-//   })
-// }
 var displayError = function (message, container) {
     container.setAttribute('data-error', error_headline + message);
 };
@@ -57,12 +46,12 @@ var lazyLoadImages = function (container) {
 };
 
 // import { image_width, image_height, feed_container } from './vars'
-var processResult = function (data, feed_container) {
+var mishaProcessResult = function (data, feed_container) {
     // data.meta.code will always be set, otherwise this function will not be called...
     if (data.meta.code === 200) {
-        var data_resolution = feed_container.getAttribute('data-resolution');
+        var data_resolution = feed_container.getAttribute('data-res');
         if (!data_resolution) {
-            var image_size = parseFloat(feed_container.getAttribute('data-img-size')) || default_img_width;
+            var image_size = parseFloat(feed_container.getAttribute('data-size')) || default_img_width;
             if (image_size > default_img_width) {
                 data_resolution = 'hi';
             }
@@ -94,16 +83,9 @@ var processResult = function (data, feed_container) {
         displayError('"' + data.meta.error_message + '"', feed_container);
     }
 };
-var mishaProcessResult = function (data, feed_container) {
-    console.log('SPACETAG: mishaProcess.ts', data);
-    processResult(data, feed_container);
-    // var res = getProcessedData(data, feed_container)
-    // feed_container.innerHTML = res.join('')
-    // lazyLoadImages(feed_container)
-};
 
 var prepareContainer = function (feed_container, count) {
-    var image_size = parseFloat(feed_container.getAttribute('data-img-size'));
+    var image_size = parseFloat(feed_container.getAttribute('data-size'));
     if (isNaN(image_size)) {
         image_size = default_img_width;
     }

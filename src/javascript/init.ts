@@ -5,7 +5,7 @@ import { mishaProcessResult } from './mishaProcess'
 import { displayError } from './errorHandler'
 
 const prepareContainer = (feed_container:HTMLElement,count:number) => {
-  var image_size = parseFloat(feed_container.getAttribute('data-img-size'))
+  var image_size = parseFloat(feed_container.getAttribute('data-size'))
 
   if (isNaN(image_size)) {
     image_size = default_img_width
