@@ -34,7 +34,9 @@ export const initFeeds = () => {
   const feeds: any = document.querySelectorAll('.instafeed:not(.loaded)')
   for (let i = 0; i < feeds.length; i++) {
     const feed = feeds[i]
-    if (feed.classList.contains('loaded')) continue
+    if (feed.classList.contains('loaded')) {
+      continue
+    }
 
     const token = feed.getAttribute('data-token') || ''
     const count = feed.getAttribute('data-count') || default_img_count

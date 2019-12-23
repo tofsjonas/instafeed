@@ -108,8 +108,9 @@ var initFeeds = function () {
     var feeds = document.querySelectorAll('.instafeed:not(.loaded)');
     var _loop_1 = function (i) {
         var feed = feeds[i];
-        if (feed.classList.contains('loaded'))
+        if (feed.classList.contains('loaded')) {
             return "continue";
+        }
         var token = feed.getAttribute('data-token') || '';
         var count = feed.getAttribute('data-count') || default_img_count;
         prepareContainer(feed, count);
