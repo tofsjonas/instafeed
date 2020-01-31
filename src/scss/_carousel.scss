@@ -1,0 +1,144 @@
+.instafeed {
+  // max-width: 90vw;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+
+  // .wrapper {
+  //   overflow: hidden;
+  //   position: relative;
+  //   background: #222;
+  //   z-index: 1;
+  // }
+
+  width: 100%;
+
+  // padding-bottom: 30%;
+  padding-bottom: 100%;
+
+  // padding-bottom: 100%;
+
+  // background: gold; /** <-- For the demo **/
+  .wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    background: red;
+  }
+
+  @media (min-width: $break-point-3) {
+    padding-bottom: 66.6%;
+
+    .wrapper {
+      background: blue;
+    }
+  }
+
+  @media (min-width: $break-point-4) {
+    padding-bottom: 50%;
+
+    .wrapper {
+      background: orange;
+    }
+  }
+
+  @media (min-width: $break-point-5) {
+    padding-bottom: 40%;
+
+    .wrapper {
+      background: purple;
+    }
+  }
+
+  .items {
+    > div {
+      *:nth-child(3n) {
+        background: #FFCF47;
+      }
+
+      *:nth-child(3n+1) {
+        background: #7ADCEF;
+      }
+
+      *:nth-child(3n+2) {
+        background: #F97C68;
+      }
+
+      cursor: pointer;
+      display: grid;
+      transition: all .1s;
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+
+      @media (min-width: $break-point-3) { // five columns
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      @media (min-width: $break-point-4) { // five columns
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+
+      @media (min-width: $break-point-5) { // five columns
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      }
+    }
+  }
+
+  .items {
+    width: 10000px;
+    position: relative;
+    display: flex;
+
+    &.shifting {
+      transition: left .2s ease-out;
+    }
+
+    > div { //slide
+
+      cursor: pointer;
+      position: relative;
+
+      > b {
+        line-height: 100px;
+      }
+
+      > i {
+        height: 30vw;
+        width: 40vw;
+        line-height: 100px;
+      }
+    }
+  }
+
+  // &.loaded {
+  // }
+}
+
+// button {
+//   position: absolute;
+//   top: 50%;
+//   width: 40px;
+//   height: 40px;
+//   background: #fff;
+//   border-radius: 20px;
+//   margin-top: -20px;
+//   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+//   z-index: 2;
+//   border: 0;
+//   background-size: 22px;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   cursor: pointer;
+
+//   &:active {
+//     transform: scale(0.8);
+//   }
+
+//   &.prev {
+//     background-image: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeft-512.png);
+//     left: -20px;
+//   }
+
+//   &.next {
+//     background-image: url(https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronRight-512.png);
+//     right: -20px;
+//   }

@@ -1,0 +1,246 @@
+$image-hover-timeout: 0.2s;
+
+@mixin overlay {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.instafeed {
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  position: relative;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  &[data-error] {
+    &:after {
+      background: #fff;
+      border-radius: 5px;
+      color: #ad2a1a;
+      content: attr(data-error);
+      display: inline-block;
+      margin: 1em;
+      padding: 1em;
+      white-space: pre;
+    }
+  }
+
+  img {
+    // removes annoying extra space
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    // transform: on hover
+    // opacity: on page load
+    transition: transform 0.3s, opacity 1s;
+    opacity: 1;
+
+    &[data-src] {
+      opacity: 0;
+    }
+  }
+
+  a {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    background: rgba(#ddd, 0.7);
+
+    &:before {
+      opacity: 0;
+      transition: opacity $image-hover-timeout;
+      color: #bbb;
+      position: absolute;
+      top: 0.2em;
+      left: 0.2em;
+      font: 2em "fontello";
+      content: "\f16d";
+    }
+
+    &:empty {
+      &:before {
+        opacity: 0.8;
+        animation: spin 1.5s cubic-bezier(0.8, 0, 0.2, 1) infinite;
+      }
+    }
+
+    &:after {
+      background: #111;
+      content: "";
+      transition: opacity $image-hover-timeout;
+      opacity: 0;
+
+      @include overlay;
+    }
+
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+
+      &:after {
+        opacity: 0.8;
+      }
+
+      .info {
+        opacity: 1;
+        left: 0;
+        bottom: 0;
+        margin-top: 0;
+        transform: scale(1);
+      }
+    }
+  }
+
+  .info {
+    @include overlay;
+
+    transition: opacity $image-hover-timeout, transform $image-hover-timeout;
+    opacity: 0;
+    transform: scale(0.8);
+    color: #eee;
+    z-index: 2;
+  }
+
+  .likes,
+  .comments {
+    margin: 25% 0.5em;
+    display: inline-block;
+    font-size: 1.3em;
+
+    &:before {
+      vertical-align: baseline;
+      font-family: "fontello";
+      display: inline-block;
+      margin-right: 0.4em;
+    }
+  }
+
+  .likes {
+    &:before {
+      content: "\e809";
+    }
+  }
+
+  .comments {
+    &:before {
+      content: "\f0e5";
+      transform: scaleX(-1);
+    }
+  }
+
+  .caption {
+    @include overlay;
+
+    padding-top: 50%;
+    overflow: hidden;
+    max-height: 40%;
+  }
+
+  button {
+    $button-size: 1.7em;
+
+    font-family: 'fontello';
+    font-size: 1em;
+    background: rgba(#000, 0.6);
+    color: #ddd;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    margin: auto;
+    border: none;
+    width: $button-size;
+    height: $button-size * 2;
+    display: block;
+    text-decoration: none;
+    z-index: 3;
+
+    &:hover {
+      background: rgba(#000, 0.9);
+      color: #fff;
+    }
+
+    &.left {
+      &:after {
+        margin-left: -.5em;
+        content: '\e804';
+      }
+
+      border-bottom-right-radius: $button-size * 2;
+      border-top-right-radius: $button-size * 2;
+      left: 0;
+    }
+
+    &.right {
+      &:before {
+        margin-right: -.5em;
+        content: '\e805';
+      }
+
+      border-bottom-left-radius: $button-size * 2;
+      border-top-left-radius: $button-size * 2;
+      right: 0;
+    }
+  }
+}
+
+// button {
+//   $button-size: 1.7em;
+
+//   font-family: 'fontello';
+//   font-size: 1em;
+//   background: rgba(#000, 0.6);
+//   color: #ddd;
+//   position: absolute;
+//   top: 50%;
+//   bottom: 50%;
+//   margin: auto;
+//   border: none;
+//   width: $button-size;
+//   height: $button-size * 2;
+//   display: block;
+//   text-decoration: none;
+//   z-index: 3;
+
+//   &:hover {
+//     background: rgba(#000, 0.9);
+//     color: #fff;
+//   }
+
+//   &.left {
+//     &:after {
+//       margin-left: -.5em;
+//       content: '\e804';
+//     }
+
+//     border-bottom-right-radius: $button-size * 2;
+//     border-top-right-radius: $button-size * 2;
+//     left: 0;
+//   }
+
+//   &.right {
+//     &:before {
+//       margin-right: -.5em;
+//       content: '\e805';
+//     }
+
+//     border-bottom-left-radius: $button-size * 2;
+//     border-top-left-radius: $button-size * 2;
+//     right: 0;
+//   }
+// }
