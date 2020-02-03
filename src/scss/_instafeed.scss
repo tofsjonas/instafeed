@@ -1,13 +1,5 @@
 $image-hover-timeout: 0.2s;
 
-@mixin overlay {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
 .instafeed {
   font-family: -apple-system, BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
@@ -166,51 +158,5 @@ $image-hover-timeout: 0.2s;
     padding-top: 50%;
     overflow: hidden;
     max-height: 40%;
-  }
-
-  button {
-    $button-size: 1.7em;
-
-    font-family: 'fontello';
-    font-size: 1em;
-    background: rgba(#000, 0.6);
-    color: #ddd;
-    position: absolute;
-    top: 50%;
-    bottom: 50%;
-    margin: auto;
-    border: none;
-    width: $button-size;
-    height: $button-size * 2;
-    display: block;
-    text-decoration: none;
-    z-index: 3;
-
-    &:hover {
-      background: rgba(#000, 0.9);
-      color: #fff;
-    }
-
-    &.left {
-      &:after {
-        margin-left: -.5em;
-        content: '\e804';
-      }
-
-      border-bottom-right-radius: $button-size * 2;
-      border-top-right-radius: $button-size * 2;
-      left: 0;
-    }
-
-    &.right {
-      &:before {
-        margin-right: -.5em;
-        content: '\e805';
-      }
-
-      border-bottom-left-radius: $button-size * 2;
-      border-top-left-radius: $button-size * 2;
-      right: 0;
-    }
   }
 }

@@ -185,54 +185,11 @@
   max-height: 40%;
 }
 
-.instafeed button {
-  font-family: 'fontello';
-  font-size: 1em;
-  background: rgba(0, 0, 0, 0.6);
-  color: #ddd;
-  position: absolute;
-  top: 50%;
-  bottom: 50%;
-  margin: auto;
-  border: none;
-  width: 1.7em;
-  height: 3.4em;
-  display: block;
-  text-decoration: none;
-  z-index: 3;
-}
-
-.instafeed button:hover {
-  background: rgba(0, 0, 0, 0.9);
-  color: #fff;
-}
-
-.instafeed button.left {
-  border-bottom-right-radius: 3.4em;
-  border-top-right-radius: 3.4em;
-  left: 0;
-}
-
-.instafeed button.left:after {
-  margin-left: -.5em;
-  content: '\e804';
-}
-
-.instafeed button.right {
-  border-bottom-left-radius: 3.4em;
-  border-top-left-radius: 3.4em;
-  right: 0;
-}
-
-.instafeed button.right:before {
-  margin-right: -.5em;
-  content: '\e805';
-}
-
 .instafeed {
   -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
+  padding-bottom: 100%;
 }
 
 .instafeed .wrapper {
@@ -266,4 +223,59 @@
 .instafeed .items > div {
   cursor: pointer;
   position: relative;
+}
+
+.instafeed button {
+  -webkit-transition: all .4s;
+  transition: all .4s;
+  font-family: 'fontello';
+  font-size: 3em;
+  background: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.4);
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  margin: auto;
+  border: none;
+  width: 1em;
+  height: 2em;
+  display: block;
+  text-decoration: none;
+  z-index: 3;
+}
+
+.instafeed button::before {
+  font-size: .6em;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+.instafeed button.right {
+  border-bottom-left-radius: 2em;
+  border-top-left-radius: 2em;
+  right: 0;
+}
+
+.instafeed button.right:before {
+  right: .4em;
+  content: '\e805';
+}
+
+.instafeed button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.instafeed button.left {
+  border-bottom-right-radius: 2em;
+  border-top-right-radius: 2em;
+  left: 0;
+}
+
+.instafeed button.left:before {
+  left: .4em;
+  content: '\e804';
 }

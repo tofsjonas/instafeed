@@ -3,7 +3,7 @@ const unLazyImage = (img: HTMLImageElement): void => {
   img.onload = () => {
     img.removeAttribute('data-src')
   }
-  img.src = img.getAttribute('data-src')
+  img.src = img.dataset['src']
 }
 
 export const lazyLoadImages = (container: Element): void => {

@@ -220,7 +220,7 @@ var unLazyImage = function (img) {
     img.onload = function () {
         img.removeAttribute('data-src');
     };
-    img.src = img.getAttribute('data-src');
+    img.src = img.dataset['src'];
 };
 var lazyLoadImages = function (container) {
     var lazyImages = [].slice.call(container.querySelectorAll('[data-src]'));

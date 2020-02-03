@@ -12,7 +12,9 @@ window['instafunx'] = Object()
  * @TODO: prettier resizing... DONE
  * @TODO: reinsert.. Lazy DONE
  * @TODO: click prevention.. DONE
- * @TODO left right-buttons, check safari...
+ * @TODO left right-buttons, check safari...DONE
+ *
+ * @TODO: font-size? What happened? Is it gone?
  * @TODO: clip caption..
  */
 

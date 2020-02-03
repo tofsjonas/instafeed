@@ -1,0 +1,13 @@
+@mixin overlay {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@mixin vertical-align {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
