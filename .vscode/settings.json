@@ -4,20 +4,20 @@
     {
       "format": "expanded",
       "extensionName": ".css",
-      "savePath": "~../../dist/css"
+      "savePath": "~../../dist"
     },
     // You can add more
     {
       "format": "compressed",
       "extensionName": ".min.css",
-      "savePath": "~../../dist/css"
+      "savePath": "~../../dist"
       // "savePath": "~../"
     },
   ],
-  "eslint.validate": [
-    "typescript"
-  ],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+  // "eslint.validate": [
+  //   "typescript"
+  // ],
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": true
+  // }
 }

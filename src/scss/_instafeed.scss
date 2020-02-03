@@ -13,6 +13,19 @@ $image-hover-timeout: 0.2s;
   font-size: 14px;
   position: relative;
 
+  &[data-header]:not([data-header=""]) {
+    margin-top: 2em;
+
+    &::before {
+      content: attr(data-header);
+      position: absolute;
+      font-size: 2em;
+      top: -1.3em;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
   @keyframes spin {
     0% {
       transform: rotate(0deg);
@@ -56,10 +69,13 @@ $image-hover-timeout: 0.2s;
   a {
     position: relative;
     overflow: hidden;
-    display: inline-block;
+    display: block;
     text-decoration: none;
     text-align: center;
     background: rgba(#ddd, 0.7);
+
+    // min-width: 100px;
+    min-height: 100px;
 
     &:before {
       opacity: 0;
@@ -198,49 +214,3 @@ $image-hover-timeout: 0.2s;
     }
   }
 }
-
-// button {
-//   $button-size: 1.7em;
-
-//   font-family: 'fontello';
-//   font-size: 1em;
-//   background: rgba(#000, 0.6);
-//   color: #ddd;
-//   position: absolute;
-//   top: 50%;
-//   bottom: 50%;
-//   margin: auto;
-//   border: none;
-//   width: $button-size;
-//   height: $button-size * 2;
-//   display: block;
-//   text-decoration: none;
-//   z-index: 3;
-
-//   &:hover {
-//     background: rgba(#000, 0.9);
-//     color: #fff;
-//   }
-
-//   &.left {
-//     &:after {
-//       margin-left: -.5em;
-//       content: '\e804';
-//     }
-
-//     border-bottom-right-radius: $button-size * 2;
-//     border-top-right-radius: $button-size * 2;
-//     left: 0;
-//   }
-
-//   &.right {
-//     &:before {
-//       margin-right: -.5em;
-//       content: '\e805';
-//     }
-
-//     border-bottom-left-radius: $button-size * 2;
-//     border-top-left-radius: $button-size * 2;
-//     right: 0;
-//   }
-// }

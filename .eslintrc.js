@@ -24,7 +24,7 @@ module.exports = {
     'comma-spacing': ['error', { before: false, after: true }],
     'func-call-spacing': ['error', 'never'],
     'keyword-spacing': ['error', { after: true, before: true }],
-    'key-spacing': ['error', { beforeColon: true, afterColon: true }],
+    'key-spacing': ['error', { beforeColon: false, afterColon: true }],
     'space-infix-ops': ['error', { int32Hint: true }],
   },
 }

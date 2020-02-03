@@ -1,31 +1,37 @@
 declare var window: any
 
-import { instagram_api_src, error_msg_adblocker, error_headline, default_img_count, default_img_rows, break_point_2, break_point_3, break_point_4, break_point_5 } from './vars'
+import { instagram_api_src, error_msg_adblocker, error_headline, default_header, default_img_count, default_img_cols, default_img_rows, column_breakpoint_start, column_breakpoint_step } from './vars'
 import { mishaProcessResult } from './mishaProcess'
-// import { lazyLoadImages } from './lazyLoadImages'
 import { carousel } from '../carousel/carousel'
+import { lazyLoadImages } from './lazyLoadImages'
 
 export const instafeed = (container: HTMLElement): void => {
   if (container.classList.contains('prep')) {
     return
   }
+  const dataset = container.dataset
+
+  const token = dataset['token'] || '' // will raise error later on, handled
+  const count = +dataset['count'] || default_img_count
+  const rows = +dataset['rows'] || default_img_rows
+  // container.setAttribute('data-header', 'nisse')
+  if (typeof container.dataset['header'] == 'undefined') {
+    container.dataset['header'] = default_header
+  }
+  // console.log('TOFS-TAG: instafeed.ts', container.dataset['header'])
+  // container.dataset['header'] = container.dataset['header'] || default_header
+  // const header = +container.dataset['header'] || default_header
+
+  container.innerHTML = '<div class="wrapper"><div class="items"></div></div><button class="left"></button><button class="right"></button>'
   var images = [] as Array<HTMLElement>
 
   const displayError = (message: string) => {
     container.setAttribute('data-error', error_headline + message)
   }
 
-  const prepareFeedContainer = (): void => {
-    var tmp = '<div class="wrapper"><div class="items"></div></div>'
-    tmp += '<button class="left"></button>'
-    tmp += '<button class="right"></button>'
-    container.innerHTML = tmp
-  }
-  prepareFeedContainer()
 
-  const token = container.getAttribute('data-token') || '' // will raise error later on, handled
-  const count = container.getAttribute('data-count') || default_img_count
-  const rows = parseInt(container.getAttribute('data-rows')) || default_img_rows
+  var item_container = container.querySelector('.items') as HTMLElement
+
   const identifier = 'a' + (0 | (Math.random() * 9e6)).toString(36)
 
   var api_src = instagram_api_src
@@ -42,112 +48,93 @@ export const instafeed = (container: HTMLElement): void => {
   var current_number_of_images_per_slide = 0
 
   const populate = () => {
-    var width = window.innerWidth
-    var cols = 2
-    var images = ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a']
+    var width = container.offsetWidth
+    var cols = +container.dataset['cols'] || default_img_cols
 
-    // if (width >= break_point_2) {
-    //   cols = 2
-    // }
-    if (width > break_point_3) {
-      cols = 3
+    var start = column_breakpoint_start
+    while (start < width) {
+      start += column_breakpoint_step
+      cols++
     }
-    if (width > break_point_4) {
-      cols = 4
-    }
-    if (width > break_point_5) {
-      cols = 5
-    }
+    // 2 rows:
+    // 2 cols = 100% = 2/2
+    // 3 cols = 66.6% = 2/3
+    // 4 cols = 50% = 2/4
 
+    // 3 rows:
+    // 2 cols = 150% = 3/2
+    // 3 cols = 100% = 3/3
+    // 4 cols = 75% = 3/4
+    // etc.
+
+    container.style.setProperty('padding-bottom', 100 * (rows / cols) + '%')
+
+    item_container.style.setProperty('grid-template-rows', 'repeat(' + rows + ', 1fr)')
     var number_of_images_per_slide = rows * cols
-    // console.log('SPACETAG: instafeed.ts POPULAAATE', width, rows, cols, number_of_images_per_slide)
+    var number_of_slides = Math.floor(images.length / number_of_images_per_slide)
+    var total_number_of_slide_elements = number_of_images_per_slide * number_of_slides
+
     if (number_of_images_per_slide != current_number_of_images_per_slide) {
       current_number_of_images_per_slide = number_of_images_per_slide
-      var item_container = container.querySelector('.items')
-
       item_container.innerHTML = ''
-      var div = document.createElement('div')
-      images.forEach((image, index) => {
-        var nisse = Math.floor(index / current_number_of_images_per_slide)
-        if (index > 0 && index % current_number_of_images_per_slide == 0) {
-          item_container.appendChild(div)
-          div = document.createElement('div')
-          // console.log('SPACETAG: instafeed.ts', 'APA', index)
+      var div2: HTMLElement
+      for (let i = 0; i < total_number_of_slide_elements; i++) {
+        if (i == 0 || i % number_of_images_per_slide == 0) {
+          div2 = document.createElement('div')
+          div2.style.setProperty('grid-template-columns', 'repeat(' + cols + ', 1fr)')
+          item_container.appendChild(div2)
         }
-        var pelle = document.createElement('a')
-        pelle.appendChild(document.createTextNode('hej ' + nisse))
-        div.appendChild(pelle)
-
-        // console.log('SPACETAG: instafeed.ts', image, index)
-      })
-      item_container.appendChild(div)
-      // console.log('SPACETAG: instafeed.ts', container.innerHTML)
-
-      // console.log('SPACETAG: instafeed.ts POPULAAATE', number_of_images_per_slide, number_of_slides)
+        div2.appendChild(images[i])
+      }
     }
+
+
+    // create three slides
+    // for (let i = 0; i < number_of_slides; i++) {
+    //   for (let k = 0; k < number_of_images_per_slide; k++) {
+    //     console.log('TOFS-TAG: instafeed.ts', k, i, k + i)
+    //   }
+    // }
+
+
+    // console.log('TOFS-TAG: instafeed.ts', number_of_slides)
+
+
+    // if (number_of_images_per_slide != current_number_of_images_per_slide) {
+    //   current_number_of_images_per_slide = number_of_images_per_slide
+    //   item_container.innerHTML = ''
+    //   var div = document.createElement('div')
+    //   div.style.setProperty('grid-template-columns', 'repeat(' + cols + ', 1fr)')
+    //   images.forEach((image, index) => {
+    //     if (index > 0 && index % current_number_of_images_per_slide == 0) {
+    //       item_container.appendChild(div)
+    //       div = document.createElement('div')
+    //       div.style.setProperty('grid-template-columns', 'repeat(' + cols + ', 1fr)')
+    //     }
+    //     div.appendChild(image)
+    //   })
+    //   item_container.appendChild(div)
+    // }
   }
 
   var resize_timer: any
-
 
   window.addEventListener('resize', () => {
     clearTimeout(resize_timer)
     resize_timer = setTimeout(populate, 150)
   })
 
-  populate()
-
   window.instafunx[identifier] = (a: any): void => {
     try {
       images = mishaProcessResult(a)
       populate()
-      // pelle(images)
+      carousel(container, true)
     } catch (error) {
       displayError(error.message)
     }
-    // lazyLoadImages(container)
+    lazyLoadImages(container)
   }
   container.className += ' prep'
-  carousel(container, true)
-  // document.body.appendChild(api_script)
+  document.body.appendChild(api_script)
 }
 
-// <div class="carousel">
-// <div class="wrapper">
-//   <div class="items">
-//     <div><b>1</b></div>
-//     <div><b>2</b></div>
-//     <div><b>3</b></div>
-//     <div><b>4</b></div>
-//     <div><b>5</b></div>
-//     <div><b>6</b></div>
-//   </div>
-// </div>
-// <button class="control prev"></button>
-// <button class="control next"></button>
-// </div>
-
-// const prepareFeedContainer = (container:HTMLElement, count:number, image_size:number):string => {
-//   var str = ''
-//   for (let i = 0; i < count; i++) {
-//     str+='<a target="_blank" style="width:' + image_size + 'px;height:' + image_size + 'px"></a>'
-//   }
-//   return str
-// }
-
-// export const initScrollFeed = (container:HTMLElement) => {
-//   doInit(container,prepareScrollContainer)
-//   handleScrollButtonVisibility(container)
-// }
-// export const initDefaultFeed = (container:HTMLElement) => {
-//   doInit(container,prepareFeedContainer)
-// }
-
-
-// calulate total number of slides
-// var number_of_slides = images.length / number_of_images_per_slide
-
-// console.log('SPACETAG: instafeed.ts', images.length, number_of_images_per_slide, number_of_slides, Math.ceil(number_of_slides))
-// if (images.length % number_of_images_per_slide !== 0) {
-//   number_of_slides++
-// }

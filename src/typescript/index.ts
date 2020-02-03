@@ -1,19 +1,36 @@
 declare var window: any
+declare var document: any
 import { instafeed } from './feed/instafeed'
+var css_link = document.createElement('link')
+css_link.rel = 'stylesheet'
+css_link.href = document['currentScript']['src'].replace(/(\.min)*\.js$/, '$1.css')
+document['head'].appendChild(css_link)
+// holds callbacks for instagram api
 window['instafunx'] = Object()
-window['instafeed'] = instafeed
+
+/**
+ * @TODO: prettier resizing... DONE
+ * @TODO: reinsert.. Lazy DONE
+ * @TODO: click prevention.. DONE
+ * @TODO left right-buttons, check safari...
+ * @TODO: clip caption..
+ */
+
+const run = () => {
+  const feeds = document.querySelectorAll('.instafeed:not(.prep)')
+  for (let i = 0; i < feeds.length; i++) {
+    var feed = feeds[i] as HTMLElement
+    instafeed(feed)
+  }
+}
+run()
+// so you can run it again if you feel like it...
+window['instafeed'] = run
 
 
 
-// window['instafeed'] = () => {
-//   const feeds = document.querySelectorAll('.instafeed:not(.prep)')
-//   for (let i = 0; i < feeds.length; i++) {
-//     var feed = feeds[i] as HTMLElement
-//     instafeed(feed)
-//   }
-// }
-
-
+// not supported by ie11 :(
+// https://medium.com/@zackcreach/fighting-instagrams-api-in-2017-832e8f0280ee
 // console.log('Starting instagram..')
 
 // const fetchData = (url: string) => {

@@ -1,8 +1,8 @@
 # InstaFeed
 
-A simple tool to add one or more *quite* basic instagram feed on a website.
+A simple tool to add one or more [Instagram](https://www.instagram.com/) feeds on a website.
 
-It will display the latest images - with caption - as well as the number of likes/comments.
+It will display the latest images with caption, as well as the number of likes/comments.
 
 ## Requirements
 
@@ -10,64 +10,69 @@ Well, a website I guess. And the ability to add html/javascript to it.
 
 ## How to
 
-1. Go to
-   https://instagram.pixelunion.net/
-   and follow the instructions to get your instagram token
+1. Go to <https://instagram.pixelunion.net/> and follow the instructions to get your instagram token. (There are other, more "proper" ways to do this, but this is both quick and painless)
 
-2. Somewhere in your html, add  `<div class="instafeed" data-token="YOUR_TOKEN"></div>`
+2. Somewhere in your html, add:
 
-3. In your `<head>` tag, add
-`<link href="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.css" rel="stylesheet" />`
-
-4. At the end of your html, just before the `</body>` tag, add
-`<script src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>`
-
-5. Call **window.instafeed()**! For instance by adding the following after the `<script>` tag you added in the previous step:
-
+``` html
+<div class="instafeed" data-token="YOUR_TOKEN"></div>
+<script defer src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
 ```
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      instafeed()
-    })
-  </script>
-
-```
-
-
 
 ## Tweaking
 
-There are three optional settings:  
+There's are few (optional) settings:
 
-- **data-size**, which sets the height and width of the images (default/max=**320**)
-- **data-count**, which sets the number of images to display (default/max=**20**)
-- **data-res**, (**...="lo"** / **...="hi"**) which forces the use of low or high resolution images (otherwise it is decided based on image size...)
+- **data-count**, which sets the number of images to display (default=**20**)
+- **data-rows**, which sets the number of rows (default=**2**)
+- **data-cols**, which sets the **minimum** number of columns to display (default=**2**)
+- **data-header**, which sets the headline. If you do not want a headline this needs to be an empty string (default=**Follow us on Instagram**)
 
 Like so:
 
-```
+``` html
 <div class="instafeed"
-	data-size="200"
-	data-count="10"
-	data-res="hi"
-	data-token="YOUR_TOKEN"></div>`
+  data-count="50"
+  data-rows="3"
+  data-cols="1"
+  data-header=""
+  data-token="YOUR_TOKEN"
+  ></div>
+<script defer src=...></script>
+```
+
+The following would be the same as the default settings, i.e. `<div class="instafeed" data-token="YOUR_TOKEN"></div>`:
+
+``` html
+<div class="instafeed"
+  data-count="20"
+  data-rows="2"
+  data-cols="2"
+  data-header="Follow us on Instagram"
+  data-token="YOUR_TOKEN"
+  ></div>
+<script defer src=...></script>
 ```
 
 You can have as many feeds as you like, just add more:
 
+``` html
+<div class="instafeed" ... data-token="YOUR_TOKEN"></div>
+<div class="instafeed" ... data-token="ANOTHER_TOKEN"></div>
+<div class="instafeed" ... data-token="A_THIRD_TOKEN"></div>
+<script defer src=...></script>
 ```
-<div class="instafeed" data-token="YOUR_TOKEN"></div>
-<div class="instafeed" data-token="ANOTHER_TOKEN"></div>
-<div class="instafeed" data-token="A_THIRD_TOKEN"></div>
-```
-
 
 ## Caveats
-Adblockers may prevent the feed...
+
+- Adblockers may prevent the feed...
+- IE9 and Opera Mini are out of the game
 
 ## Credits
 
-The root of it all, what made this possible:  
-https://rudrastyh.com/instagram/get-photos-and-profile-info-pure-javascript.html
+The root of it all, what made this possible:
+[Misha Rudrastyh](https://rudrastyh.com/instagram/get-photos-and-profile-info-pure-javascript.html)
 
-Fonts generated at https://icomoon.io/app/, base64-encoded at https://transfonter.org/
+Carousel: [Claudia Conceicao](https://codepen.io/cconceicao/pen/PBQawy)
+
+Fonts generated at [Fontello](http://fontello.com/), base64-encoded at <https://transfonter.org/>

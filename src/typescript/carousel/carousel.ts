@@ -1,5 +1,4 @@
 export function carousel(container: HTMLElement, resize_slide_to_container: boolean) {
-  // var resize_slide_to_container = container.classList.contains('resize-to-container') || false
   var wrapper = container.children[0]
   var prev = container.children[1] as HTMLElement
   var next = container.children[2] as HTMLElement
@@ -20,6 +19,7 @@ export function carousel(container: HTMLElement, resize_slide_to_container: bool
   var index: number
   var allowShift: boolean
   var build_in_progress = false
+  var build_timer: any
   var resize_timer: any // number does not work... :(
   var resizing_in_progress = true
 
@@ -77,6 +77,10 @@ export function carousel(container: HTMLElement, resize_slide_to_container: bool
   }
   const dragEnd = () => {
     posFinal = items.offsetLeft
+    if (Math.abs(posFinal - posInitial) > 5) {
+      window.addEventListener('click', noClick)
+    }
+
     if (posFinal - posInitial < -threshold) {
       shiftSlide(1, 'drag')
     } else if (posFinal - posInitial > threshold) {
@@ -89,6 +93,10 @@ export function carousel(container: HTMLElement, resize_slide_to_container: bool
     window.removeEventListener('mousemove', dragAction)
     window.removeEventListener('touchend', dragEnd)
     window.removeEventListener('touchmove', dragAction)
+    setTimeout(() => {
+      window.removeEventListener('click', noClick)
+    }, 10)
+
   }
   const shiftSlide = (dir: number, action?: string) => {
     if (resizing_in_progress) { return }
@@ -128,13 +136,16 @@ export function carousel(container: HTMLElement, resize_slide_to_container: bool
     allowShift = true
   }
 
+  const noClick = (e: Event) => {
+    e.preventDefault()
+  }
+
+
+
 
   const resizeContainerToSlide = () => {
     posInitial = 0
     slideWidth = firstSlide.getBoundingClientRect().width
-    console.log('SPACETAG: carousel.ts resizeContainerToSlide', slideWidth, firstSlide.offsetWidth)
-    // var slideHeight = firstSlide.getBoundingClientRect().height
-    // container.style.height = slideHeight + 'px'
     container.style.width = slideWidth + 'px'
     items.style.left = '-' + slideWidth + 'px'
   }
@@ -167,16 +178,13 @@ export function carousel(container: HTMLElement, resize_slide_to_container: bool
     resize_timer = setTimeout(resizeContainer, 150)
   })
 
-  //måste ha en timeout här oxå, så att jag kan stoppa in prylar en i taget
-
-  var build_timer: any
   var observer = new MutationObserver(() => {
     if (!build_in_progress) {
       clearTimeout(build_timer)
       build_timer = setTimeout(build, 10)
     }
   })
-  observer.observe(items, { subtree : true, childList : true })
+  observer.observe(items, { subtree: true, childList: true })
 
   // Mouse and Touch events
   items.addEventListener('touchstart', dragStart)
@@ -184,10 +192,10 @@ export function carousel(container: HTMLElement, resize_slide_to_container: bool
 
   // Button Click events
   prev.addEventListener('click', () => {
-    shiftSlide(-1)
+    shiftSlide(-1, null)
   })
   next.addEventListener('click', () => {
-    shiftSlide(1)
+    shiftSlide(1, null)
   })
 
   // Transition events
