@@ -1,5 +1,14 @@
 # InstaFeed
 
+- [InstaFeed](#instafeed)
+  - [Requirements](#requirements)
+  - [How to](#how-to)
+  - [Demo](#demo)
+  - [Tweaking](#tweaking)
+  - [Multiple feeds](#multiple-feeds)
+  - [Caveats](#caveats)
+  - [Credits](#credits)
+
 A simple tool to add one or more [Instagram](https://www.instagram.com/) feeds on a website.
 
 It will display the latest images with caption, as well as the number of likes/comments.
@@ -23,6 +32,10 @@ Well, a website I guess. And the ability to add html/javascript to it.
   src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
 
 ```
+
+## Demo
+
+<https://tofsjonas.github.io/instafeed/>
 
 ## Tweaking
 
@@ -59,6 +72,8 @@ The following would be the same as the default settings, i.e:
   src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
 ```
 
+## Multiple feeds
+
 You can have as many feeds as you like, just add more:
 
 ``` html
@@ -86,8 +101,7 @@ You can have as many feeds as you like, just add more:
 
 ## Credits
 
-The root of it all, what made this possible:
-[Misha Rudrastyh](https://rudrastyh.com/instagram/get-photos-and-profile-info-pure-javascript.html)
+Where it all started: [Misha Rudrastyh](https://rudrastyh.com/instagram/get-photos-and-profile-info-pure-javascript.html)
 
 Carousel: [Claudia Conceicao](https://codepen.io/cconceicao/pen/PBQawy)
 
