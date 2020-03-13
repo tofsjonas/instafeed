@@ -2,20 +2,18 @@ $image-hover-timeout: 0.2s;
 
 .jInstafeed {
   box-sizing: border-box;
-  font: 14px/1.1em "-apple-system", BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+  font: 600 14px/18px fontello, -apple-system, BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
 
-  // font-size: 14px;
-  // line-height: 1em;
-  margin: 0;
-  padding: 0;
+  // margin: 0;
+  // padding: 0;
   position: relative;
 
   * {
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-
-  // background: green;
 
   &[data-headline]:not([data-headline=""]) {
     margin-top: 3.5em;
@@ -59,7 +57,7 @@ $image-hover-timeout: 0.2s;
     height: 100%;
     position: relative;
 
-    // otherwise it will blink on hover for some reason
+    // otherwise the background will show thru on hover for some reason
     transform: scale(1.01);
 
     // transform: on hover
@@ -154,7 +152,8 @@ $image-hover-timeout: 0.2s;
 
     &:before {
       vertical-align: baseline;
-      font-family: "fontello";
+
+      // font-family: "fontello";
       display: inline-block;
       margin-right: 0.4em;
     }
@@ -181,7 +180,8 @@ $image-hover-timeout: 0.2s;
     right: 0;
     bottom: 0;
     padding: 1em 2em;
-    line-height: 1.2em;
+
+    // line-height: 1.2em;
     overflow: hidden;
     max-height: 6em;
   }

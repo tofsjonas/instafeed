@@ -8,15 +8,15 @@
 .jInstafeed {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font: 14px/1.1em "-apple-system", BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
-  margin: 0;
-  padding: 0;
+  font: 600 14px/18px fontello, -apple-system, BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
   position: relative;
 }
 
 .jInstafeed * {
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .jInstafeed[data-headline]:not([data-headline=""]) {
@@ -149,7 +149,6 @@
 .jInstafeed .likes:before,
 .jInstafeed .comments:before {
   vertical-align: baseline;
-  font-family: "fontello";
   display: inline-block;
   margin-right: 0.4em;
 }
@@ -171,7 +170,6 @@
   right: 0;
   bottom: 0;
   padding: 1em 2em;
-  line-height: 1.2em;
   overflow: hidden;
   max-height: 6em;
 }
@@ -220,6 +218,7 @@
   transition: all .4s;
   font-family: 'fontello';
   font-size: 3em;
+  outline: none;
   background: rgba(0, 0, 0, 0.4);
   color: rgba(255, 255, 255, 0.4);
   position: absolute;
