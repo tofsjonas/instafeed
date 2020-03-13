@@ -2,9 +2,10 @@ $image-hover-timeout: 0.2s;
 
 .jInstafeed {
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  line-height: 1em;
+  font: 14px/1.1em "-apple-system", BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+
+  // font-size: 14px;
+  // line-height: 1em;
   margin: 0;
   padding: 0;
   position: relative;
