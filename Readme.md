@@ -15,8 +15,13 @@ Well, a website I guess. And the ability to add html/javascript to it.
 2. Somewhere in your html, add:
 
 ``` html
-<div class="instafeed" data-token="YOUR_TOKEN"></div>
-<script defer src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
+
+<script
+  data-token="YOUR_TOKEN"
+  onload="jInstafeed(this)"
+  defer
+  src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
+
 ```
 
 ## Tweaking
@@ -26,41 +31,52 @@ There's are few (optional) settings:
 - **data-count**, which sets the number of images to display (default=**20**)
 - **data-rows**, which sets the number of rows (default=**2**)
 - **data-cols**, which sets the **minimum** number of columns to display (default=**2**)
-- **data-header**, which sets the headline. If you do not want a headline this needs to be an empty string (default=**Follow us on Instagram**)
+- **data-headline**, which sets the headline. If you do not want a headline this needs to be an empty string (default=**Follow us on Instagram**)
 
 Like so:
 
 ``` html
-<div class="instafeed"
-  data-count="50"
-  data-rows="3"
-  data-cols="1"
-  data-header=""
+<script
+  data-count="100"
+  data-rows="2"
+  data-cols="3"
+  data-headline="My headline"
   data-token="YOUR_TOKEN"
-  ></div>
-<script defer src=...></script>
+  onload="jInstafeed(this)"
+  defer
+  src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
 ```
 
-The following would be the same as the default settings, i.e. `<div class="instafeed" data-token="YOUR_TOKEN"></div>`:
+The following would be the same as the default settings, i.e:
 
 ``` html
-<div class="instafeed"
+<script
   data-count="20"
   data-rows="2"
   data-cols="2"
-  data-header="Follow us on Instagram"
+  data-headline="Follow us on Instagram"
   data-token="YOUR_TOKEN"
-  ></div>
-<script defer src=...></script>
+  src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
 ```
 
 You can have as many feeds as you like, just add more:
 
 ``` html
-<div class="instafeed" ... data-token="YOUR_TOKEN"></div>
-<div class="instafeed" ... data-token="ANOTHER_TOKEN"></div>
-<div class="instafeed" ... data-token="A_THIRD_TOKEN"></div>
-<script defer src=...></script>
+<script
+  data-token="YOUR_TOKEN"
+  onload="jInstafeed(this)"
+  defer
+  src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
+  <br>
+  <br>
+  <br>
+<script
+  data-token="ANOTHER_TOKEN"
+  onload="jInstafeed(this)"
+  defer
+  src="//cdn.jsdelivr.net/gh/tofsjonas/instafeed@X.X/dist/feed.min.js"></script>
+  ...
+  ...
 ```
 
 ## Caveats

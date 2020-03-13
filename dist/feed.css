@@ -5,23 +5,33 @@
   font-style: normal;
 }
 
-.instafeed {
+.jInstafeed {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, Roboto, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
+  line-height: 1em;
+  margin: 0;
+  padding: 0;
   position: relative;
 }
 
-.instafeed[data-header]:not([data-header=""]) {
-  margin-top: 2em;
+.jInstafeed * {
+  margin: 0;
+  padding: 0;
 }
 
-.instafeed[data-header]:not([data-header=""])::before {
-  content: attr(data-header);
-  position: absolute;
+.jInstafeed[data-headline]:not([data-headline=""]) {
+  margin-top: 3.5em;
+}
+
+.jInstafeed[data-headline]:not([data-headline=""])::before {
+  content: attr(data-headline);
   font-size: 2em;
+  position: absolute;
+  text-align: center;
   top: -1.3em;
   width: 100%;
-  text-align: center;
 }
 
 @-webkit-keyframes spin {
@@ -46,7 +56,7 @@
   }
 }
 
-.instafeed[data-error]:after {
+.jInstafeed[data-error]:after {
   background: #fff;
   border-radius: 5px;
   color: #ad2a1a;
@@ -57,149 +67,131 @@
   white-space: pre;
 }
 
-.instafeed img {
+.jInstafeed img {
   display: block;
-  width: 100%;
   height: 100%;
   position: relative;
-  -webkit-transition: opacity 1s, -webkit-transform 0.3s;
-  transition: opacity 1s, -webkit-transform 0.3s;
-  transition: transform 0.3s, opacity 1s;
-  transition: transform 0.3s, opacity 1s, -webkit-transform 0.3s;
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+  -webkit-transition: opacity 1s, -webkit-transform 0.2s;
+  transition: opacity 1s, -webkit-transform 0.2s;
+  transition: transform 0.2s, opacity 1s;
+  transition: transform 0.2s, opacity 1s, -webkit-transform 0.2s;
   opacity: 1;
+  width: 100%;
 }
 
-.instafeed img[data-src] {
+.jInstafeed img[data-src] {
   opacity: 0;
 }
 
-.instafeed a {
+.jInstafeed .info {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s;
+  background-color: rgba(17, 17, 17, 0);
+  color: rgba(238, 238, 238, 0);
+  z-index: 2;
+}
+
+.jInstafeed .info > * {
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+  -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+}
+
+.jInstafeed .info:hover {
+  background-color: rgba(17, 17, 17, 0.7);
+  color: #eeeeee;
+}
+
+.jInstafeed .info:hover > * {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.jInstafeed a {
   position: relative;
   overflow: hidden;
   display: block;
   text-decoration: none;
   text-align: center;
   background: rgba(221, 221, 221, 0.7);
-  min-height: 100px;
+  margin: 0;
+  padding: 0;
 }
 
-.instafeed a:before {
-  opacity: 0;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-  color: #bbb;
-  position: absolute;
-  top: 0.2em;
-  left: 0.2em;
-  font: 2em "fontello";
-  content: "\f16d";
-}
-
-.instafeed a:empty:before {
+.jInstafeed a:empty:before {
   opacity: 0.8;
   -webkit-animation: spin 1.5s cubic-bezier(0.8, 0, 0.2, 1) infinite;
           animation: spin 1.5s cubic-bezier(0.8, 0, 0.2, 1) infinite;
 }
 
-.instafeed a:after {
-  background: #111;
-  content: "";
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-  opacity: 0;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.instafeed a:hover img {
+.jInstafeed a:hover img {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
 
-.instafeed a:hover:after {
-  opacity: 0.8;
-}
-
-.instafeed a:hover .info {
-  opacity: 1;
-  left: 0;
-  bottom: 0;
-  margin-top: 0;
-  -webkit-transform: scale(1);
-          transform: scale(1);
-}
-
-.instafeed .info {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  -webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
-  transition: opacity 0.2s, -webkit-transform 0.2s;
-  transition: opacity 0.2s, transform 0.2s;
-  transition: opacity 0.2s, transform 0.2s, -webkit-transform 0.2s;
-  opacity: 0;
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
-  color: #eee;
-  z-index: 2;
-}
-
-.instafeed .likes,
-.instafeed .comments {
+.jInstafeed .likes,
+.jInstafeed .comments {
   margin: 25% 0.5em;
   display: inline-block;
   font-size: 1.3em;
 }
 
-.instafeed .likes:before,
-.instafeed .comments:before {
+.jInstafeed .likes:before,
+.jInstafeed .comments:before {
   vertical-align: baseline;
   font-family: "fontello";
   display: inline-block;
   margin-right: 0.4em;
 }
 
-.instafeed .likes:before {
+.jInstafeed .likes:before {
   content: "\e809";
 }
 
-.instafeed .comments:before {
+.jInstafeed .comments:before {
   content: "\f0e5";
   -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
 }
 
-.instafeed .caption {
-  bottom: 0;
-  left: 0;
+.jInstafeed .caption {
   position: absolute;
+  top: 40%;
+  left: 0;
   right: 0;
-  top: 0;
-  padding-top: 50%;
+  bottom: 0;
+  padding: 1em 2em;
+  line-height: 1.2em;
   overflow: hidden;
-  max-height: 40%;
+  max-height: 6em;
 }
 
-.instafeed {
+.jInstafeed {
   -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  padding-bottom: 100%;
+  padding-bottom: 150px;
 }
 
-.instafeed .wrapper {
+.jInstafeed .wrapper {
   overflow: hidden;
   width: 100%;
   position: absolute;
   height: 100%;
 }
 
-.instafeed .items > div {
+.jInstafeed .items > div {
   cursor: pointer;
   display: -ms-grid;
   display: grid;
@@ -207,7 +199,7 @@
   transition: all .1s;
 }
 
-.instafeed .items {
+.jInstafeed .items {
   width: 9999999%;
   position: relative;
   display: -webkit-box;
@@ -215,17 +207,17 @@
   display: flex;
 }
 
-.instafeed .items.shifting {
+.jInstafeed .items.shifting {
   -webkit-transition: left .2s ease-out;
   transition: left .2s ease-out;
 }
 
-.instafeed .items > div {
+.jInstafeed .items > div {
   cursor: pointer;
   position: relative;
 }
 
-.instafeed button {
+.jInstafeed button {
   -webkit-transition: all .4s;
   transition: all .4s;
   font-family: 'fontello';
@@ -245,7 +237,7 @@
   z-index: 3;
 }
 
-.instafeed button::before {
+.jInstafeed button::before {
   font-size: .6em;
   position: absolute;
   top: 50%;
@@ -253,29 +245,29 @@
           transform: translate(0, -50%);
 }
 
-.instafeed button.right {
+.jInstafeed button.right {
   border-bottom-left-radius: 2em;
   border-top-left-radius: 2em;
   right: 0;
 }
 
-.instafeed button.right:before {
+.jInstafeed button.right:before {
   right: .4em;
   content: '\e805';
 }
 
-.instafeed button:hover {
+.jInstafeed button:hover {
   background: rgba(0, 0, 0, 0.8);
   color: rgba(255, 255, 255, 0.8);
 }
 
-.instafeed button.left {
+.jInstafeed button.left {
   border-bottom-right-radius: 2em;
   border-top-right-radius: 2em;
   left: 0;
 }
 
-.instafeed button.left:before {
+.jInstafeed button.left:before {
   left: .4em;
   content: '\e804';
 }

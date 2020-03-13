@@ -2,7 +2,7 @@
 var instagram_api_src = 'https://api.instagram.com/v1/users/self/media/recent?';
 var error_headline = 'Instagram feed failed 😞\n\n';
 var error_msg_adblocker = 'Most likely due to an ad blocker...';
-var default_header = 'Follow us on Instagram';
+var default_headline = 'Follow us on Instagram';
 var default_img_count = 20;
 var default_img_rows = 2;
 var default_img_cols = 2;
@@ -166,12 +166,14 @@ function carousel(container, resize_slide_to_container) {
         e.preventDefault();
     };
     var resizeContainerToSlide = function () {
+        console.log('TOFS-TAG: carousel.ts', 'RESIZING resizeContainerToSlide');
         posInitial = 0;
         slideWidth = firstSlide.getBoundingClientRect().width;
         container.style.width = slideWidth + 'px';
         items.style.left = '-' + slideWidth + 'px';
     };
     var resizeSlideToContainer = function () {
+        console.log('TOFS-TAG: carousel.ts', 'RESIZING resizeSlideToContainer');
         posInitial = 0;
         slideWidth = container.getBoundingClientRect().width;
         var slideHeight = container.getBoundingClientRect().height;
@@ -245,16 +247,20 @@ var lazyLoadImages = function (container) {
     }
 };
 
-var instafeed = function (container) {
-    if (container.classList.contains('prep')) {
-        return;
-    }
-    var dataset = container.dataset;
+var instafeed = function (currentScript) {
+    var parent = currentScript.parentNode;
+    var container = document.createElement('DIV');
+    container.className = 'jInstafeed';
+    parent.insertBefore(container, currentScript);
+    var dataset = currentScript.dataset;
     var token = dataset['token'] || '';
     var count = +dataset['count'] || default_img_count;
     var rows = +dataset['rows'] || default_img_rows;
-    if (typeof container.dataset['header'] == 'undefined') {
-        container.dataset['header'] = default_header;
+    if (typeof dataset['headline'] == 'undefined') {
+        container.dataset['headline'] = default_headline;
+    }
+    else {
+        container.dataset['headline'] = dataset['headline'];
     }
     container.innerHTML = '<div class="wrapper"><div class="items"></div></div><button class="left"></button><button class="right"></button>';
     var images = [];
@@ -266,7 +272,7 @@ var instafeed = function (container) {
     var api_src = instagram_api_src;
     api_src += 'access_token=' + token;
     api_src += '&count=' + count;
-    api_src += '&callback=window.instafunx.' + identifier;
+    api_src += '&callback=window.jinstafunx.' + identifier;
     var api_script = document.createElement('script');
     api_script.setAttribute('src', api_src);
     api_script.onerror = function () {
@@ -274,13 +280,18 @@ var instafeed = function (container) {
     };
     var current_number_of_images_per_slide = 0;
     var populate = function () {
-        var width = container.offsetWidth;
+        var container_width = container.offsetWidth;
         var cols = +container.dataset['cols'] || default_img_cols;
         var start = column_breakpoint_start;
-        while (start < width) {
+        while (start < container_width) {
             start += column_breakpoint_step;
             cols++;
         }
+        var image_width = container_width / cols;
+        images.forEach(function (i) {
+            i.style.width = image_width + 'px';
+            i.style.height = image_width + 'px';
+        });
         container.style.setProperty('padding-bottom', 100 * (rows / cols) + '%');
         item_container.style.setProperty('grid-template-rows', 'repeat(' + rows + ', 1fr)');
         var number_of_images_per_slide = rows * cols;
@@ -289,14 +300,14 @@ var instafeed = function (container) {
         if (number_of_images_per_slide != current_number_of_images_per_slide) {
             current_number_of_images_per_slide = number_of_images_per_slide;
             item_container.innerHTML = '';
-            var div2;
+            var slide;
             for (var i = 0; i < total_number_of_slide_elements; i++) {
                 if (i == 0 || i % number_of_images_per_slide == 0) {
-                    div2 = document.createElement('div');
-                    div2.style.setProperty('grid-template-columns', 'repeat(' + cols + ', 1fr)');
-                    item_container.appendChild(div2);
+                    slide = document.createElement('DIV');
+                    slide.style.setProperty('grid-template-columns', 'repeat(' + cols + ', 1fr)');
+                    item_container.appendChild(slide);
                 }
-                div2.appendChild(images[i]);
+                slide.appendChild(images[i]);
             }
         }
     };
@@ -305,33 +316,26 @@ var instafeed = function (container) {
         clearTimeout(resize_timer);
         resize_timer = setTimeout(populate, 150);
     });
-    window.instafunx[identifier] = function (a) {
+    window['jinstafunx'][identifier] = function (a) {
         try {
             images = mishaProcessResult(a);
             populate();
             carousel(container, true);
+            lazyLoadImages(container);
         }
         catch (error) {
             displayError(error.message);
         }
-        lazyLoadImages(container);
     };
-    container.className += ' prep';
     document.body.appendChild(api_script);
 };
 
-var css_link = document.createElement('link');
-css_link.rel = 'stylesheet';
-css_link.href = document['currentScript']['src'].replace(/(\.min)*\.js$/, '$1.css');
-document['head'].appendChild(css_link);
-window['instafunx'] = Object();
-var run = function () {
-    var feeds = document.querySelectorAll('.instafeed:not(.prep)');
-    for (var i = 0; i < feeds.length; i++) {
-        var feed = feeds[i];
-        instafeed(feed);
-    }
-};
-run();
-window['instafeed'] = run;
+if (!window['jInstafeed']) {
+    window['jInstafeed'] = instafeed;
+    window['jinstafunx'] = Object();
+    var css_link = document.createElement('link');
+    css_link.rel = 'stylesheet';
+    css_link.href = document['currentScript']['src'].replace(/(\.min)*\.js$/, '$1.css');
+    document['head'].appendChild(css_link);
+}
 })(document, window)

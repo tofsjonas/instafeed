@@ -144,12 +144,14 @@ export function carousel(container: HTMLElement, resize_slide_to_container: bool
 
 
   const resizeContainerToSlide = () => {
+    console.log('TOFS-TAG: carousel.ts', 'RESIZING resizeContainerToSlide')
     posInitial = 0
     slideWidth = firstSlide.getBoundingClientRect().width
     container.style.width = slideWidth + 'px'
     items.style.left = '-' + slideWidth + 'px'
   }
   const resizeSlideToContainer = () => {
+    console.log('TOFS-TAG: carousel.ts', 'RESIZING resizeSlideToContainer')
     posInitial = 0
     slideWidth = container.getBoundingClientRect().width
     var slideHeight = container.getBoundingClientRect().height

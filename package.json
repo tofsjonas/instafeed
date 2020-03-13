@@ -5,6 +5,7 @@
   "main": "dist/feed.js",
   "scripts": {
     "build": "rollup -c",
+    "start": "rollup -cw",
     "watch": "rollup -cw",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },

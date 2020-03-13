@@ -11,9 +11,6 @@ type dataElement = {
     text: string,
   },
   images: {
-    low_resolution: {
-      url: string,
-    },
     standard_resolution: {
       url: string,
     },
