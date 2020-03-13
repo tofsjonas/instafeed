@@ -1,8 +1,10 @@
 import typescript from 'rollup-plugin-typescript2'
+import cleanup from 'rollup-plugin-cleanup'
+
 // import pkg from './package.json'
 export default [
   {
-    input: './src/javascript/feed.ts',
+    input: './src/typescript/index.ts',
     output: [
       // {
       //   file: pkg.main,
@@ -13,23 +15,19 @@ export default [
         strict: false,
         banner: '((document, window) => {',
         footer: '})(document, window)',
-        // file: pkg.module,
-        // globals: {
-        //   window: 'window',
-        //   document: 'document'
-        // },
-        // external: ['window', 'document'],
-        // globals: ['window', 'document'],
-        format: 'esm'
-        // format: 'iife'
-      }
+        format: 'esm',
+      },
     ],
     // external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     treeshake: true,
     plugins: [
       typescript({
-        typescript: require('typescript')
-      })
-    ]
-  }
+        typescript: require('typescript'),
+      }),
+      cleanup({
+        comments: 'some',
+        extensions: ['ts', 'js', 'jsx', 'tag'],
+      }),
+    ],
+  },
 ]

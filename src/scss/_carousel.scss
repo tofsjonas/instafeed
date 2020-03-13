@@ -1,0 +1,99 @@
+.jInstafeed {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+
+  // Calculated in javascript...
+  padding-bottom: 150px;
+
+  .wrapper {
+    overflow: hidden;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+  }
+
+  .items {
+    > div {
+      cursor: pointer;
+      display: grid;
+      transition: all .1s;
+
+      // Calculated in javascript...
+      // grid-template-rows: 1fr 1fr;
+      // grid-template-columns: repeat(3, 1fr);
+
+      // @media (min-width: $column-breakpoint-start) {
+      //   grid-template-columns: repeat(3, 1fr);
+      // }
+   
+    }
+  }
+
+  .items {
+    // as wide as possible...
+    width: 9999999%;
+    position: relative;
+    display: flex;
+
+    &.shifting {
+      transition: left .2s ease-out;
+    }
+
+    > div { //slide
+      cursor: pointer;
+      position: relative;
+    }
+  }
+
+  button {
+    transition: all .4s;
+    font-family: 'fontello';
+    font-size: 3em;
+
+    // opacity: .6; // doesn't work so good.. :(
+    background: rgba(#000, 0.4);
+    color: rgba(#fff, 0.4);
+
+    @include vertical-align;
+
+    margin: auto;
+    border: none;
+    width: 1em;
+    height: 2em;
+    display: block;
+    text-decoration: none;
+    z-index: 3;
+
+    &::before {
+      font-size: .6em;
+
+      @include vertical-align;
+    }
+
+    &.right {
+      &:before {
+        right: .4em;
+        content: '\e805';
+      }
+
+      border-bottom-left-radius: 2em;
+      border-top-left-radius: 2em;
+      right: 0;
+    }
+
+    &:hover {
+      background: rgba(#000, 0.8);
+      color: rgba(#fff, 0.8);
+    }
+
+    &.left {
+      &:before {
+        left: .4em;
+        content: '\e804';
+      }
+
+      border-bottom-right-radius: 2em;
+      border-top-right-radius: 2em;
+      left: 0;
+    }
+  }
+}

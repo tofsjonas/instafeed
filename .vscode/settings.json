@@ -14,5 +14,11 @@
       // "savePath": "~../"
     },
   ],
-
+  "liveServer.settings.CustomBrowser": "firefox",
+  // "eslint.validate": [
+  //   "typescript"
+  // ],
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": true
+  // }
 }
