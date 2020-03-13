@@ -166,14 +166,12 @@ function carousel(container, resize_slide_to_container) {
         e.preventDefault();
     };
     var resizeContainerToSlide = function () {
-        console.log('TOFS-TAG: carousel.ts', 'RESIZING resizeContainerToSlide');
         posInitial = 0;
         slideWidth = firstSlide.getBoundingClientRect().width;
         container.style.width = slideWidth + 'px';
         items.style.left = '-' + slideWidth + 'px';
     };
     var resizeSlideToContainer = function () {
-        console.log('TOFS-TAG: carousel.ts', 'RESIZING resizeSlideToContainer');
         posInitial = 0;
         slideWidth = container.getBoundingClientRect().width;
         var slideHeight = container.getBoundingClientRect().height;
