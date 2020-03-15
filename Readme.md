@@ -1,6 +1,12 @@
 # InstaFeed
 
+## BUMMER
+
+*Just as I'm "finished", on March 15, I realize that this will not work AT ALL after March 31
+Ah well, at least I had fun building it...*
+
 - [InstaFeed](#instafeed)
+  - [BUMMER](#bummer)
   - [Requirements](#requirements)
   - [How to](#how-to)
   - [Demo](#demo)
